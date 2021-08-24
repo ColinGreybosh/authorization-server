@@ -5,19 +5,22 @@ import router from './routes';
 
 export class AuthServer {
 
-    private readonly app: Application;
+    public readonly app: Application;
     private server: Server|undefined;
 
     public constructor(
         private readonly requestedPort: number,
-        private readonly baseURI: string
+        private readonly baseURI: string,
+        private readonly enableLogging: boolean
     ) {
         this.app = express();
 
         this.app.use(baseURI, express.json());
 
         this.app.use(baseURI, (req, res, next) => {
-            logger.info(`Request received: ${req.method} ${req.url} ${req.path}`);
+            if (enableLogging) {
+                logger.info(`Request received: ${req.method} ${req.url} ${req.path}`);
+            }
             next();
         });
 
@@ -26,12 +29,16 @@ export class AuthServer {
 
     public start(): void {
         this.server = this.app.listen(this.requestedPort, () => {
-            logger.info(`server started at http://localhost:${this.requestedPort}`);
+            if (this.enableLogging) {
+                logger.info(`server started at http://localhost:${this.requestedPort}`);
+            }
         });
     }
 
     public stop(): void {
         this.server?.close();
-        logger.info(`server stopped`);
+        if (this.enableLogging) {
+            logger.info(`server stopped`);
+        }
     }
 }
