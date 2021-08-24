@@ -3,7 +3,8 @@ import { AuthServer } from './AuthServer';
 
 dotenv.config();
 const port = Number(process.env.SERVER_PORT); // default port to listen
-const authServer: AuthServer = new AuthServer(Number(port), process.env.API_BASE_URL);
+const apiBaseURI = process.env.API_BASE_URL;
+const authServer: AuthServer = new AuthServer(port, apiBaseURI);
 
 if (require.main === module) {
     // start the Express server
