@@ -2,7 +2,7 @@
   "name": "authorization-server",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
