@@ -1,12 +1,12 @@
 import assert from 'assert';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-
-import app from '../src/index';
+import { AuthServer } from '../src/AuthServer';
 
 chai.use(chaiHttp);
 
-const server = app.listen(5000);
+const server: AuthServer = new AuthServer(5000, '/')
+server.start();
 
 describe('/', () => {
     describe('GET', () => {
@@ -16,4 +16,4 @@ describe('/', () => {
     });
 });
 
-server.close();
+server.stop();

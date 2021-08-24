@@ -1,16 +1,15 @@
 import express from 'express';
 
-import { logger } from '../logging';
-
 const router: express.Router = express.Router();
 
-router.use((req, res, next) => {
-    logger.info(`Request received: ${req.method} ${req.url} ${req.path}`);
+router.get('/', (req, res, next) => {
+    res.send('Hello, world!');
     next();
 });
 
-router.get('/', (req, res) => {
-    res.send('Hello, world!');
+router.post('/', (req, res, next) => {
+    res.json(req.body);
+    next();
 });
 
 export default router;
